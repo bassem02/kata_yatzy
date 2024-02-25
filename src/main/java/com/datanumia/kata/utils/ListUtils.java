@@ -25,11 +25,11 @@ public class ListUtils {
         return Collections.frequency(list, number);
     }
 
-    public static List<Integer> sort(List<Integer> dice) {
-        return dice.stream().sorted().toList();
+    public static List<Integer> sort(List<Integer> diceList) {
+        return diceList.stream().sorted().toList();
     }
 
-    public static int diceFrequency(List<Integer> dice, int number) {
-        return Collections.frequency(dice, number);
+    public static int diceFrequency(List<Integer> diceList, int number) {
+        return Collections.frequency(diceList, number);
     }
 }

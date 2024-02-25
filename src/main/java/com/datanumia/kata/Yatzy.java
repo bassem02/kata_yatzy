@@ -12,8 +12,12 @@ public class Yatzy {
         this.categoryStrategy = categoryStrategy;
     }
 
-    public int getScore(List<Integer> dice){
-        return categoryStrategy.calculateScore(dice);
+    public int getScore(List<Integer> diceList) {
+        return categoryStrategy.calculateScore(diceList);
+    }
+
+    public void setCategoryStrategy(CategoryStrategy categoryStrategy) {
+        this.categoryStrategy = categoryStrategy;
     }
 }
 

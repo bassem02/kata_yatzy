@@ -6,7 +6,7 @@ import com.datanumia.kata.utils.ListUtils;
 
 import java.util.List;
 
-public abstract class AbstractNumberStrategy implements CategoryStrategy {
+public abstract sealed class AbstractNumberStrategy implements CategoryStrategy permits OnesStrategy, TwosStrategy, ThreesStrategy, FoursStrategy, FivesStrategy, SixesStrategy {
     private final Dice dice;
 
     public AbstractNumberStrategy(Dice dice) {

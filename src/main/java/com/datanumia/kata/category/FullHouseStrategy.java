@@ -4,17 +4,17 @@ import com.datanumia.kata.utils.ListUtils;
 
 import java.util.List;
 
-public class FullHouseStrategy implements CategoryStrategy {
+public final class FullHouseStrategy implements CategoryStrategy {
     @Override
-    public int calculateScore(List<Integer> dice) {
-        var threeOfKind = dice.stream().filter(x -> ListUtils.diceFrequency(dice, x) == 3).findFirst().orElse(0);
+    public int calculateScore(List<Integer> diceList) {
+        var threeOfKind = diceList.stream().filter(x -> ListUtils.diceFrequency(diceList, x) == 3).findFirst().orElse(0);
         if (threeOfKind == 0) { // stop if there is no three of a kind
             return 0;
         }
-        var twoOfKind = dice.stream().filter(x -> ListUtils.diceFrequency(dice, x) == 2).findFirst().orElse(0);
+        var twoOfKind = diceList.stream().filter(x -> ListUtils.diceFrequency(diceList, x) == 2).findFirst().orElse(0);
         if (twoOfKind == 0) { // stop if there is no two of a kind
             return 0;
         }
-        return ListUtils.sum(dice);
+        return ListUtils.sum(diceList);
     }
 }

@@ -4,9 +4,9 @@ import com.datanumia.kata.utils.ListUtils;
 
 import java.util.List;
 
-public class ChanceStrategy implements CategoryStrategy{
+public final class ChanceStrategy implements CategoryStrategy{
     @Override
-    public int calculateScore(List<Integer> dice) {
-        return ListUtils.sum(dice);
+    public int calculateScore(List<Integer> diceList) {
+        return ListUtils.sum(diceList);
     }
 }

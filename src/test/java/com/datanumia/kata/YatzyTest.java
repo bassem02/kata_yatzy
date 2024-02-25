@@ -1,13 +1,7 @@
 package com.datanumia.kata;
 
-import com.datanumia.kata.category.*;
-import com.datanumia.kata.category.numberOfAKind.FourOfAKindStrategy;
-import com.datanumia.kata.category.numberOfAKind.ThreeOfAKindStrategy;
-import com.datanumia.kata.category.numbers.*;
-import com.datanumia.kata.category.pairs.PairStrategy;
-import com.datanumia.kata.category.pairs.TwoPairStrategy;
-import com.datanumia.kata.category.straight.LargeStraightStrategy;
-import com.datanumia.kata.category.straight.SmallStraightStrategy;
+import com.datanumia.kata.category.Category;
+import com.datanumia.kata.category.CategoryStrategyFactory;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,14 +14,16 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class YatzyTest {
 
+    Yatzy yatzy = new Yatzy(CategoryStrategyFactory.createCategoryStrategy(Category.CHANCE));
+
     @ParameterizedTest
     @MethodSource("chanceDiceParams")
-    public void chance_category_shouldSumAllDice(List<Integer> dice, int expectedScore) {
+    public void chance_category_shouldSumAllDice(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new ChanceStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.CHANCE));
 
         //When
-        var sum = yatzy.getScore(dice);
+        var sum = yatzy.getScore(diceList);
 
         //Then
         AssertionsForClassTypes.assertThat(sum).isEqualTo(expectedScore);
@@ -42,12 +38,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("yatzyDiceParams")
-    public void yatzy_category_shouldScores50(List<Integer> dice, int expectedScore) {
+    public void yatzy_category_shouldScores50(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new YatzyStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.YATZY));
 
         //When
-        var sum = yatzy.getScore(dice);
+        var sum = yatzy.getScore(diceList);
 
         //Then
         AssertionsForClassTypes.assertThat(sum).isEqualTo(expectedScore);
@@ -63,12 +59,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("OnesDiceParams")
-    public void ones_category_shouldSumOnes(List<Integer> dice, int expectedScore) {
+    public void ones_category_shouldSumOnes(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new OnesStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.ONES));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -83,12 +79,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("twosDiceParams")
-    public void twos_category_shouldSumTwos(List<Integer> dice, int expectedScore) {
+    public void twos_category_shouldSumTwos(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new TwosStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.TWOS));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -103,12 +99,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("threesDiceParams")
-    public void threes_category_shouldSumTwos(List<Integer> dice, int expectedScore) {
+    public void threes_category_shouldSumTwos(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new ThreesStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.THREES));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -123,12 +119,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("foursDiceParams")
-    public void fours_category_shouldSumTwos(List<Integer> dice, int expectedScore) {
+    public void fours_category_shouldSumTwos(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new FoursStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.FOURS));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -143,12 +139,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("fivesDiceParams")
-    public void fives_category_shouldSumTwos(List<Integer> dice, int expectedScore) {
+    public void fives_category_shouldSumTwos(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new FivesStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.FIVES));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -163,12 +159,13 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("sixesDiceParams")
-    public void sixes_category_shouldSumTwos(List<Integer> dice, int expectedScore) {
+    public void sixes_category_shouldSumTwos(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new SixesStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.SIXES));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
+
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -183,12 +180,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("onePairDiceParams")
-    public void pair_category_shouldSumHighestPair(List<Integer> dice, int expectedScore) {
+    public void pair_category_shouldSumHighestPair(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new PairStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.PAIR));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -206,12 +203,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("twoPairDiceParams")
-    public void twoPairs_category_shouldSumTheTwoPairs(List<Integer> dice, int expectedScore) {
+    public void twoPairs_category_shouldSumTheTwoPairs(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new TwoPairStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.TWO_PAIR));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -228,12 +225,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("threeOfAKindDiceParams")
-    public void threeOfAKind_category_shouldSumTheDiceThreeTimes(List<Integer> dice, int expectedScore) {
+    public void threeOfAKind_category_shouldSumTheDiceThreeTimes(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new ThreeOfAKindStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.THREE_OF_A_KIND));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -249,12 +246,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("fourOfAKindDiceParams")
-    public void fourOfAKind_category_shouldSumTheDiceFourTimes(List<Integer> dice, int expectedScore) {
+    public void fourOfAKind_category_shouldSumTheDiceFourTimes(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new FourOfAKindStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.FOUR_OF_A_KIND));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -270,12 +267,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("smallStraightDiceParams")
-    public void smallStraight_category_shouldScores15(List<Integer> dice, int expectedScore) {
+    public void smallStraight_category_shouldScores15(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new SmallStraightStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.SMALL_STRAIGHT));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -291,12 +288,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("largeStraightDiceParams")
-    public void largeStraight_category_shouldScores20(List<Integer> dice, int expectedScore) {
+    public void largeStraight_category_shouldScores20(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new LargeStraightStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.LARGE_STRAIGHT));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);
@@ -312,12 +309,12 @@ public class YatzyTest {
 
     @ParameterizedTest
     @MethodSource("fullHouseDiceParams")
-    public void fullHouse_category_shouldSumAll(List<Integer> dice, int expectedScore) {
+    public void fullHouse_category_shouldSumAll(List<Integer> diceList, int expectedScore) {
         //Given
-        Yatzy yatzy = new Yatzy(new FullHouseStrategy());
+        yatzy.setCategoryStrategy(CategoryStrategyFactory.createCategoryStrategy(Category.FULL_HOUSE));
 
         //When
-        int sum = yatzy.getScore(dice);
+        int sum = yatzy.getScore(diceList);
 
         //Then
         assertThat(sum).isEqualTo(expectedScore);

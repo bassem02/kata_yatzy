@@ -1,4 +1,4 @@
-package com.datanumia.kata.category.numberOfAKind;
+package com.datanumia.kata.category.numberofakind;
 
 import com.datanumia.kata.Dice;
 import com.datanumia.kata.category.CategoryStrategy;
@@ -6,7 +6,7 @@ import com.datanumia.kata.utils.ListUtils;
 
 import java.util.List;
 
-public abstract class AbstractNumberOfAKindStrategy implements CategoryStrategy {
+public abstract sealed class AbstractNumberOfAKindStrategy implements CategoryStrategy permits ThreeOfAKindStrategy, FourOfAKindStrategy{
     private final Dice dice;
 
     public AbstractNumberOfAKindStrategy(Dice dice) {
